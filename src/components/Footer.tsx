@@ -1,12 +1,28 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import BookDemoModal from "./BookDemoModal";
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
+
+  const handleHomeClick = () => {
+    if (location.pathname === '/') {
+      // If on home page, scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // If on another page, navigate to home page
+      window.location.href = '/';
+    }
+  };
 
   const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== '/') {
+      // If not on home page, navigate to home page with hash
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -36,7 +52,7 @@ const Footer = () => {
               <h3 className="text-lg font-semibold">Quick Links</h3>
               <nav className="flex flex-col space-y-2">
                 <button 
-                  onClick={() => scrollToSection('home')}
+                  onClick={handleHomeClick}
                   className="text-left text-white/80 hover:text-white transition-colors"
                 >
                   Home
@@ -47,14 +63,8 @@ const Footer = () => {
                 >
                   About Us
                 </button>
-                <button 
-                  onClick={() => scrollToSection('products')}
-                  className="text-left text-white/80 hover:text-white transition-colors"
-                >
+                <Link to="/products" className="text-left text-white/80 hover:text-white transition-colors">
                   Products
-                </button>
-                <Link to="/products" className="text-white/80 hover:text-white transition-colors">
-                  All Products
                 </Link>
                 <button 
                   onClick={() => scrollToSection('contact')}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +13,7 @@ import BookDemoModal from "./BookDemoModal";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
 
   const projects = [
     { name: "E-commerce Platform", href: "#" },
@@ -21,7 +22,23 @@ const Header = () => {
     { name: "Supply Chain Optimization", href: "#" }
   ];
 
+  const handleHomeClick = () => {
+    if (location.pathname === '/') {
+      // If on home page, scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // If on another page, navigate to home page
+      window.location.href = '/';
+    }
+    setIsMenuOpen(false);
+  };
+
   const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== '/') {
+      // If not on home page, navigate to home page with hash
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -45,7 +62,7 @@ const Header = () => {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <button 
-                onClick={() => scrollToSection('home')}
+                onClick={handleHomeClick}
                 className="text-foreground hover:text-primary transition-colors"
               >
                 Home
@@ -100,7 +117,7 @@ const Header = () => {
             <div className="md:hidden py-4 border-t border-gray-200">
               <nav className="flex flex-col space-y-4">
                 <button 
-                  onClick={() => scrollToSection('home')}
+                  onClick={handleHomeClick}
                   className="text-left text-foreground hover:text-primary transition-colors"
                 >
                   Home
