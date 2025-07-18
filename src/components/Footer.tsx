@@ -66,6 +66,9 @@ const Footer = () => {
                 <Link to="/products" className="text-left text-white/80 hover:text-white transition-colors">
                   Products
                 </Link>
+                <Link to="/blog" className="text-left text-white/80 hover:text-white transition-colors">
+                  Blog
+                </Link>
                 <button 
                   onClick={() => scrollToSection('contact')}
                   className="text-left text-white/80 hover:text-white transition-colors"

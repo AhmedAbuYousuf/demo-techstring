@@ -5,6 +5,7 @@ import AboutSection from "@/components/sections/AboutSection";
 import ClientsSlider from "@/components/sections/ClientsSlider";
 import ProductsSection from "@/components/sections/ProductsSection";
 import ReviewsSection from "@/components/sections/ReviewsSection";
+import FeaturedBlogsSection from "@/components/sections/FeaturedBlogsSection";
 import ContactSection from "@/components/sections/ContactSection";
 
 const Index = () => {
@@ -28,6 +29,8 @@ const Index = () => {
         </section>
         
         <ReviewsSection />
+        
+        <FeaturedBlogsSection />
         
         <section id="contact">
           <ContactSection />

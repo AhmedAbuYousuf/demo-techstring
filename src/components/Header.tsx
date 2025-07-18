@@ -75,22 +75,29 @@ const Header = () => {
               </button>
               
               {/* Projects Dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors">
+              <div className="relative group">
+                <button 
+                  onClick={() => scrollToSection('products')}
+                  className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors"
+                >
                   <span>Projects</span>
                   <ChevronDown className="h-4 w-4" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
+                </button>
+                <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   {projects.slice(0, 3).map((project) => (
-                    <DropdownMenuItem key={project.name}>
-                      <Link to="#" className="w-full">{project.name}</Link>
-                    </DropdownMenuItem>
+                    <Link key={project.name} to="#" className="block px-4 py-2 text-sm text-foreground hover:bg-gray-50 transition-colors">
+                      {project.name}
+                    </Link>
                   ))}
-                  <DropdownMenuItem>
-                    <Link to="/products" className="w-full font-medium">More Products →</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                  <Link to="/products" className="block px-4 py-2 text-sm text-primary font-medium hover:bg-gray-50 transition-colors">
+                    More Products →
+                  </Link>
+                </div>
+              </div>
+
+              <Link to="/blog" className="text-foreground hover:text-primary transition-colors">
+                Blog
+              </Link>
             </nav>
 
             {/* Desktop CTA */}
@@ -141,6 +148,13 @@ const Header = () => {
                     </Link>
                   </div>
                 </div>
+                <Link 
+                  to="/blog"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-left text-foreground hover:text-primary transition-colors"
+                >
+                  Blog
+                </Link>
                 <Button 
                   onClick={() => {
                     setIsModalOpen(true);
